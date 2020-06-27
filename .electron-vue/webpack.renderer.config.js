@@ -36,6 +36,10 @@ let rendererConfig = {
         use: ['vue-style-loader', 'css-loader', 'less-loader']
       },
       {
+        test: /\.scss$/,
+        loaders: ['style-loader', 'css-loader', 'sass-loader']
+      },
+      {
         test: /\.css$/,
         use: ['vue-style-loader', 'css-loader']
       },
@@ -54,17 +58,25 @@ let rendererConfig = {
       },
       {
         test: /\.vue$/,
-        use: {
-          loader: 'vue-loader',
-          options: {
-            extractCSS: process.env.NODE_ENV === 'production',
-            loaders: {
-              sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax=1',
-              scss: 'vue-style-loader!css-loader!sass-loader',
-              less: 'vue-style-loader!css-loader!less-loader'
+        use: [
+          {
+            loader: 'vue-loader',
+            options: {
+              extractCSS: process.env.NODE_ENV === 'production',
+              loaders: {
+                sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax=1',
+                scss: 'vue-style-loader!css-loader!sass-loader',
+                less: 'vue-style-loader!css-loader!less-loader'
+              }
+            }
+          },
+          {
+            loader: 'iview-loader',
+            options: {
+              prefix: true
             }
           }
-        }
+        ]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

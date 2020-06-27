@@ -7,6 +7,8 @@ import store from './store'
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';    // 使用 CSS
 import pubSub from 'pubsub-js'
+import './assets/iconfont/iconfont.css'
+import './assets/css/common.scss'
 
 Vue.use(iView);
 Vue.prototype.$pubSub = pubSub
