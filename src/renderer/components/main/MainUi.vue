@@ -1,22 +1,36 @@
 <template>
     <div class="mainUi">
+        <drawer-box/>
         <side-left/>
+        <edit-center/>
     </div>
 </template>
 
 <script>
   import SideLeft from './SideLeft'
+  import EditCenter from './EditCenter'
+  import DrawerBox from './DrawerBox'
   export default {
     name: "MainUi",
     components: {
-      SideLeft
+      SideLeft,
+      EditCenter,
+      DrawerBox
+    },
+    data(){
+      return {
+        value1: true
+      }
     }
   }
 </script>
 
 <style lang="scss" scoped>
 .mainUi {
+    display: flex;
+    position: relative;
+    height: calc(100% - 42px);
     width: 100%;
-    height: 100%;
+    box-sizing: border-box;
 }
 </style>

@@ -4,13 +4,14 @@ import axios from 'axios'
 import App from './App'
 import router from './router'
 import store from './store'
-import iView from 'iview';
-import 'iview/dist/styles/iview.css';    // 使用 CSS
 import pubSub from 'pubsub-js'
+import ViewUI from 'view-design';
+// import style
+import 'view-design/dist/styles/iview.css';
 import './assets/iconfont/iconfont.css'
 import './assets/css/common.scss'
 
-Vue.use(iView);
+Vue.use(ViewUI);
 Vue.prototype.$pubSub = pubSub
 
 

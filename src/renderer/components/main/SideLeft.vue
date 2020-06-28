@@ -1,6 +1,6 @@
 <template>
     <div class="sideLeft">
-        <span class="iconfont icon-menu"></span>
+        <span class="iconfont icon-menu" alt="菜单"></span>
     </div>
 </template>
 
@@ -18,10 +18,11 @@
 .sideLeft {
     position: relative;
     width: 43px;
-    height: 100vh;
-    background-color: rgb(54, 55, 56);
-    .icon-menu {
-        color: #fff;
+    box-sizing: border-box;
+    background-color: $main-backgroun-color;
+    text-align: center;
+    .iconfont {
+        color: $default-font-color;
         font-size: 32px;
         cursor: pointer;
         &:hover {
