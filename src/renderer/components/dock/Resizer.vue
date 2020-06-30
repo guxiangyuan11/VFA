@@ -81,28 +81,28 @@
         computed: {
         },
         mounted: function () {
-            this.$PubSub.subscribe('main-mouseup', () => {
+            this.$PubSub.subscribe('main-mouseup', (msg,event) => {
                 /*if (this.active) {
                     this.$parent.mouseup()
                 }*/
                 this.active = false
             })
-            this.$PubSub.subscribe('main-mousemove', (event) => {
-                console.log(this.active)
-                 // if (this.active) {
-                 //     this.move.end = {
-                 //         x: event.pageX,
-                 //         y: event.pageY
-                 //     }
-                 //     this.$parent.doMove(this, {
-                 //         x: this.move.start.x - this.move.end.x,
-                 //         y: this.move.start.y - this.move.end.y
-                 //     })
-                 // }
+            this.$PubSub.subscribe('main-mousemove', (msg,event) => {
+                 if (this.active) {
+                     this.move.end = {
+                         x: event.pageX,
+                         y: event.pageY
+                     }
+                     this.$parent.doMove(this, {
+                         x: this.move.start.x - this.move.end.x,
+                         y: this.move.start.y - this.move.end.y
+                     })
+                 }
             })
         },
         methods: {
             mousedown: function (event) {
+              console.log('x', event.pageX)
                 this.move.start = {
                     x: event.pageX,
                     y: event.pageY

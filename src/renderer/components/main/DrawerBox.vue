@@ -1,14 +1,15 @@
 <template>
     <div
-       class="drawerBox active"
+       class="drawerBox"
+       :class="{active: active && currentWidth>=200}"
        :style="{
-          width: drawerWidth
+          width: currentWidth + 'px'
        }"
     >
         <div class="drawerContent">
 
         </div>
-        <resizer type="column" class="row" :level="2"/>
+        <resizer ref="resizer" type="row" class="row" :level="2"/>
     </div>
 </template>
 
@@ -22,25 +23,24 @@
         data() {
             return {
                 resizerSize: 3,
-                drawerWidth: '200px'
+                drawerWidth: 200,
+                currentWidth: 200,
+                active: true
             }
         },
+        mounted() {
+          this.$PubSub.subscribe('drawerActive', (msg, val) => {
+              this.active = val
+          })
+        },
         methods: {
-            initBounding: function () {
-                // 初始化并获取抽屉的宽高
-               /* let box = this.$el.getBoundingClientRect()
-                let length = this.$children.length
-                this.boxSize.width = box.width
-                this.boxSize.iwidth = box.width - Math.floor(length / 2) * this.resizerSize
-                this.boxSize.height = box.height
-                this.boxSize.iheight = box.height - Math.floor(length / 2) * this.resizerSize*/
-            },
             doMove: function (resizer, move) {
-                let key = this.info.type == 'row' ? 'x' : 'y'
-                this.drawerWidth = (this.drawerWidth + move[key]) +  'px'
+                let key = this.$refs.resizer.type == 'row' ? 'x' : 'y'
+                // 由于currentWidth会不停的变所以用drawerWidth存储初始的宽度
+                this.currentWidth = (this.drawerWidth - move[key])
             },
             mousedown(e) {
-                this.initBounding()
+                this.drawerWidth = this.currentWidth
             }
         }
     }

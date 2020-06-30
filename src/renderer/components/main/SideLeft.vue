@@ -1,14 +1,39 @@
 <template>
     <div class="sideLeft">
-        <span class="iconfont icon-menu" alt="菜单"></span>
+        <span
+             class="iconfont icon-menu"
+             :class="{active: active === index}"
+             alt="菜单"
+             v-for="(item,index) in leftMenuList"
+             :key='"menu" + index'
+             @click="applyMethod(item.methodName, index)"
+        ></span>
     </div>
 </template>
 
 <script>
+    import leftMenuJson from '../../config/leftMenu'
     export default {
         name: "SideLeft",
         data(){
-            return { }
+            return {
+                active: -1,
+                leftMenuList: leftMenuJson
+            }
+        },
+        methods: {
+            applyMethod(methodName, data) {
+                this[methodName](data)
+            },
+            openLeftDrawer(_index) {
+                if(this.active === _index){
+                    this.active = -1
+                    this.$PubSub.publish('drawerActive', false)
+                } else {
+                    this.active = _index
+                    this.$PubSub.publish('drawerActive', true)
+                }
+            },
         }
     }
 </script>
@@ -26,6 +51,9 @@
             font-size: 32px;
             cursor: pointer;
             &:hover {
+                color: $hover-highlight-color;
+            }
+            &.active {
                 color: $hover-highlight-color;
             }
         }
