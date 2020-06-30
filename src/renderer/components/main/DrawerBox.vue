@@ -1,5 +1,10 @@
 <template>
-    <div class="drawerBox active">
+    <div
+       class="drawerBox active"
+       :style="{
+          width: drawerWidth
+       }"
+    >
         <div class="drawerContent">
 
         </div>
@@ -14,8 +19,29 @@
         components: {
             Resizer
         },
+        data() {
+            return {
+                resizerSize: 3,
+                drawerWidth: '200px'
+            }
+        },
         methods: {
-
+            initBounding: function () {
+                // 初始化并获取抽屉的宽高
+               /* let box = this.$el.getBoundingClientRect()
+                let length = this.$children.length
+                this.boxSize.width = box.width
+                this.boxSize.iwidth = box.width - Math.floor(length / 2) * this.resizerSize
+                this.boxSize.height = box.height
+                this.boxSize.iheight = box.height - Math.floor(length / 2) * this.resizerSize*/
+            },
+            doMove: function (resizer, move) {
+                let key = this.info.type == 'row' ? 'x' : 'y'
+                this.drawerWidth = (this.drawerWidth + move[key]) +  'px'
+            },
+            mousedown(e) {
+                this.initBounding()
+            }
         }
     }
 </script>
@@ -31,7 +57,6 @@
         height: 100%;
         background-color: red;
         padding-left: $side-left-box-width;
-        transition: all 0.3s ease-in-out;
         &.active {
             left: 0;
         }

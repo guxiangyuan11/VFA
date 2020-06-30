@@ -88,16 +88,17 @@
                 this.active = false
             })
             this.$PubSub.subscribe('main-mousemove', (event) => {
-                /* if (this.active) {
-                     this.move.end = {
-                         x: event.pageX,
-                         y: event.pageY
-                     }
-                     this.$parent.doMove(this, {
-                         x: this.move.start.x - this.move.end.x,
-                         y: this.move.start.y - this.move.end.y
-                     })
-                 }*/
+                console.log(this.active)
+                 // if (this.active) {
+                 //     this.move.end = {
+                 //         x: event.pageX,
+                 //         y: event.pageY
+                 //     }
+                 //     this.$parent.doMove(this, {
+                 //         x: this.move.start.x - this.move.end.x,
+                 //         y: this.move.start.y - this.move.end.y
+                 //     })
+                 // }
             })
         },
         methods: {
@@ -108,7 +109,7 @@
                 }
                 this.active = true
                 if (this.active) {
-                    // this.$parent.mousedown(this)
+                    this.$parent.mousedown(this)
                 }
             }
         }
