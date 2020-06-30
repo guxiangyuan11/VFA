@@ -5,29 +5,29 @@
 </template>
 
 <script>
-  export default {
-    name: "SideLeft",
-    data(){
-      return { }
+    export default {
+        name: "SideLeft",
+        data(){
+            return { }
+        }
     }
-  }
 </script>
 
 <style lang="scss">
-@import "../../assets/css/common";
-.sideLeft {
-    position: relative;
-    width: 43px;
-    box-sizing: border-box;
-    background-color: $main-backgroun-color;
-    text-align: center;
-    .iconfont {
-        color: $default-font-color;
-        font-size: 32px;
-        cursor: pointer;
-        &:hover {
-            color: $hover-highlight-color;
+    @import "../../assets/css/common";
+    .sideLeft {
+        position: relative;
+        width: $side-left-box-width;
+        box-sizing: border-box;
+        background-color: $main-backgroun-color;
+        text-align: center;
+        .iconfont {
+            color: $default-font-color;
+            font-size: 32px;
+            cursor: pointer;
+            &:hover {
+                color: $hover-highlight-color;
+            }
         }
     }
-}
 </style>

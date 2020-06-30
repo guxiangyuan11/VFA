@@ -12,7 +12,7 @@ import './assets/iconfont/iconfont.css'
 import './assets/css/common.scss'
 
 Vue.use(ViewUI);
-Vue.prototype.$pubSub = pubSub
+Vue.prototype.$PubSub = PubSub
 
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
