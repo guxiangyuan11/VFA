@@ -3,55 +3,6 @@
         <div class="bar"></div>
     </div>
 </template>
-<style lang="scss"  scoped>
-    .ui-dock-resizer {
-        position: relative;
-        flex: none;
-        white-space: nowrap;
-        z-index: 2;
-        user-select: none;
-
-        &.column {
-            width: auto;
-            height: 4px;
-            margin: 0 0;
-            box-shadow: inset 0 -4px 6px -5px #7b7b7b, inset 0px 4px 6px -5px #000;
-
-            .bar {
-                top: -1px;
-                left: 0;
-                height: 6px;
-                width: 100%;
-                cursor: row-resize;
-            }
-        }
-
-        &.row {
-            width: 4px;
-            height: auto;
-            margin: 0 0;
-            box-shadow: inset -4px 0 6px -5px #000, inset 4px 0px 6px -5px #a0a0a0;
-
-            .bar {
-                top: 0;
-                left: -1px;
-                width: 6px;
-                height: 100%;
-                cursor: col-resize;
-            }
-        }
-
-        &.active {
-            .bar {
-                background-color: #d48806;
-            }
-        }
-
-        .bar {
-            position: absolute;
-        }
-    }
-</style>
 <script type="text/ecmascript-6">
     export default {
         name: 'dockResizer',
@@ -102,7 +53,6 @@
         },
         methods: {
             mousedown: function (event) {
-              console.log('x', event.pageX)
                 this.move.start = {
                     x: event.pageX,
                     y: event.pageY
@@ -116,3 +66,52 @@
     }
 </script>
 
+<style lang="scss"  scoped>
+    .ui-dock-resizer {
+        position: relative;
+        flex: none;
+        white-space: nowrap;
+        z-index: 2;
+        user-select: none;
+
+        &.column {
+            width: auto;
+            height: 4px;
+            margin: 0 0;
+            box-shadow: inset 0 -4px 6px -5px #7b7b7b, inset 0px 4px 6px -5px #000;
+
+            .bar {
+                top: -1px;
+                left: 0;
+                height: 6px;
+                width: 100%;
+                cursor: row-resize;
+            }
+        }
+
+        &.row {
+            width: 4px;
+            height: auto;
+            margin: 0 0;
+            box-shadow: inset -4px 0 6px -5px #000, inset 4px 0px 6px -5px #a0a0a0;
+
+            .bar {
+                top: 0;
+                left: -1px;
+                width: 6px;
+                height: 100%;
+                cursor: col-resize;
+            }
+        }
+
+        &.active {
+            .bar {
+                background-color: #d48806;
+            }
+        }
+
+        .bar {
+            position: absolute;
+        }
+    }
+</style>
