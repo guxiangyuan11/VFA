@@ -21,6 +21,11 @@
                 leftMenuList: leftMenuJson
             }
         },
+        mounted() {
+            this.$PubSub.subscribe('setActiveMenu', (_index) => {
+                this.active = _index
+            })
+        },
         methods: {
             applyMethod(methodName, data) {
                 this[methodName](data)

@@ -1,31 +1,31 @@
 <template>
     <div
        class="drawerBox"
-       :class="{active: active && currentWidth>=200}"
+       :class="{active: active}"
        :style="{
           width: currentWidth + 'px'
        }"
     >
-        <div class="drawerContent">
-
-        </div>
+        <UiPlane/>
         <resizer ref="resizer" type="row" class="row" :level="2"/>
     </div>
 </template>
 
 <script>
     import Resizer from '../dock/Resizer'
+    import UiPlane from '../dock/UiPlane'
     export default {
         name: "DrawerBox",
         components: {
-            Resizer
+            Resizer,
+            UiPlane
         },
         data() {
             return {
                 resizerSize: 3,
                 drawerWidth: 200,
-                currentWidth: 200,
-                active: true
+                currentWidth: 300,
+                active: false
             }
         },
         mounted() {
@@ -37,7 +37,11 @@
             doMove: function (resizer, move) {
                 let key = this.$refs.resizer.type == 'row' ? 'x' : 'y'
                 // 由于currentWidth会不停的变所以用drawerWidth存储初始的宽度
-                this.currentWidth = (this.drawerWidth - move[key])
+                if(this.currentWidth<=200 && move[key]>0){
+                    this.currentWidth = 200
+                } else {
+                    this.currentWidth = (this.drawerWidth - move[key])
+                }
             },
             mousedown(e) {
                 this.drawerWidth = this.currentWidth
@@ -53,16 +57,16 @@
         position: absolute;
         left: -100%;
         bottom: 0;
-        width: 200px;
+        width: 300px;
         height: 100%;
-        background-color: red;
+        background-color: $default-box-background-color;
         padding-left: $side-left-box-width;
         &.active {
             left: 0;
         }
-        .drawerContent {
+        .uiPlane {
             width: 100%;
-            background-color: green;
+            /*background-color: green;*/
         }
     }
 </style>
