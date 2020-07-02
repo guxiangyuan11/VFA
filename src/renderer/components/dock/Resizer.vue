@@ -33,9 +33,9 @@
         },
         mounted: function () {
             this.$PubSub.subscribe('main-mouseup', (msg,event) => {
-                /*if (this.active) {
+                if (this.active && this.$parent['mouseup']) {
                     this.$parent.mouseup()
-                }*/
+                }
                 this.active = false
             })
             this.$PubSub.subscribe('main-mousemove', (msg,event) => {
