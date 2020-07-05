@@ -1,10 +1,10 @@
 <template>
     <div
        class="drawerBox"
-       :class="{active: active}"
        :style="{
           width: currentWidth + 'px'
        }"
+       v-show="show"
     >
         <UiPlane/>
         <resizer ref="resizer" type="row" class="row" :level="2"/>
@@ -25,12 +25,12 @@
                 resizerSize: 3,
                 drawerWidth: 200,
                 currentWidth: 300,
-                active: false
+                show: false
             }
         },
         mounted() {
           this.$PubSub.subscribe('drawerActive', (msg, val) => {
-              this.active = val
+              this.show = val
           })
         },
         methods: {
@@ -54,16 +54,11 @@
     @import "../../assets/css/common";
     .drawerBox {
         display: flex;
-        position: absolute;
-        left: -100%;
-        bottom: 0;
+        position: relative;
         width: 300px;
         height: 100%;
         background-color: $default-box-background-color;
-        padding-left: $side-left-box-width;
-        &.active {
-            left: 0;
-        }
+        /*transition: all 0.3s;*/
         .uiPlane {
             width: 100%;
             /*background-color: green;*/

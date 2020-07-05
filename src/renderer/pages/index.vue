@@ -1,5 +1,5 @@
 <template>
-    <div class="editorWarp">
+    <div class="editorWarp" @mouseup.prevent="mouseup($event)" @mousemove.prevent="mousemove($event)" >
         <my-header/>
         <main-ui/>
     </div>
@@ -17,6 +17,12 @@
     mounted() {
     },
     methods: {
+      mouseup(event){
+        this.$PubSub.publish('main-mouseup', event)
+      },
+      mousemove(event){
+        this.$PubSub.publish('main-mousemove', event)
+      }
     }
   }
 </script>

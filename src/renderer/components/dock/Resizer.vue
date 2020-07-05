@@ -76,7 +76,7 @@
 
         &.column {
             width: auto;
-            height: 4px;
+            height: 2px;
             margin: 0 0;
             box-shadow: inset 0 -4px 6px -5px #7b7b7b, inset 0px 4px 6px -5px #000;
 

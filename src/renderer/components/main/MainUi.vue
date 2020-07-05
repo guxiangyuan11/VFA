@@ -1,7 +1,7 @@
 <template>
-    <div class="mainUi" @mouseup="mouseup($event)" @mousemove="mousemove($event)">
-        <drawer-box/>
+    <div class="mainUi">
         <side-left/>
+        <drawer-box/>
         <edit-center/>
     </div>
 </template>
@@ -10,6 +10,7 @@
     import SideLeft from './SideLeft'
     import EditCenter from './EditCenter'
     import DrawerBox from './DrawerBox'
+
     export default {
         name: "MainUi",
         components: {
@@ -19,16 +20,10 @@
         },
         data(){
             return {
-                value1: true
             }
         },
         methods: {
-            mouseup(event){
-                this.$PubSub.publish('main-mouseup', event)
-            },
-            mousemove(event){
-                this.$PubSub.publish('main-mousemove', event)
-            },
+
         }
     }
 </script>

@@ -26,9 +26,9 @@
               return {
                 type: 'column',
                 children: [
-                  {flex:1, backgroundColor:'red'},
-                  {flex:1, backgroundColor:'green'},
-                  {flex:1, backgroundColor:'blue'},
+                  {flex:2, limit:100, backgroundColor:'red'},
+                  {flex:1, limit:100, backgroundColor:'green'},
+                  {flex:1, limit:100, backgroundColor:'blue'},
                 ]
               }
             }
@@ -45,8 +45,6 @@
                     iheight: 0, // 减去当前框下resizer的高度
                 },
                 resizerSize: 3,
-                preFlex: 0,
-                nextFlex: 0,
             }
         },
         mounted() {
@@ -62,19 +60,27 @@
             this.boxSize.iheight = box.height - Math.floor(length / 2) * this.resizerSize
           },
           doMove: function (resizer, move) {
-            var key = this.info.type == 'row' ? 'x' : 'y'
-            var preFlex = parseFloat(this.preFlex - move[key])
-            var nextFlex = parseFloat(this.nextFlex + move[key])
+            // 对元素进行放宽缩小
+            let key = this.info.type == 'row' ? 'x' : 'y'
+            let preFlex = parseFloat(this.preFlex - move[key])
+            let nextFlex = parseFloat(this.nextFlex + move[key])
             if (this.preBrother && this.nextBrother) {
-              this.preBrother.info.flex = preFlex + 'px'
-              this.nextBrother.info.flex = nextFlex + 'px'
+              if(preFlex <= this.preBrother.info.limit || nextFlex <= this.nextBrother.info.limit){
+                return
+              }
+              this.preBrother.info.flex = preFlex <= this.preBrother.info.limit ? this.preBrother.info.limit : preFlex
+              this.preBrother.info.flex = this.preBrother.info.flex + 'px'
+              this.nextBrother.info.flex = nextFlex <= this.nextBrother.info.limit ? this.nextBrother.info.limit : nextFlex
+              this.nextBrother.info.flex = this.nextBrother.info.flex + 'px'
             }
           },
           dealPx: function () {
-            var key = this.info.type == 'row' ? 'width' : 'height'
-            var total = this.boxSize['i' + key]
+            let key = this.info.type == 'row' ? 'width' : 'height'
+            let total = this.boxSize['i' + key]
+            let flexCount = 0;
+
             // 查询是否有不是百分比的数据，如果有的话。统一容错处理
-            var px = this.info.children.find(element => {
+            let px = this.info.children.find(element => {
               if ((element.flex + '').indexOf('px') != -1) {
                 return true
               }
@@ -82,8 +88,15 @@
             if (px) {
               this.info.children.forEach(element => {
                 element.flex = 1 / this.info.children.length
+                flexCount += element.flex
               })
+            } else {
+              this.info.children.forEach(element => {
+                flexCount += element.flex
+              })
+              total = total / flexCount
             }
+            // 将百分比转换为px
             this.info.children.forEach(element => {
               this.$set(element, 'flex', element.flex * total + 'px')
             })
