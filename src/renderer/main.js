@@ -10,9 +10,11 @@ import ViewUI from 'view-design';
 import 'view-design/dist/styles/iview.css';
 import './assets/iconfont/iconfont.css'
 import './assets/css/common.scss'
+import Widget from './components/pageComponents'
 
 Vue.use(ViewUI);
-Vue.prototype.$PubSub = PubSub
+Vue.use(Widget)
+Vue.prototype.$PubSub = pubSub
 
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))

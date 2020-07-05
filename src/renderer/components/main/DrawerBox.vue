@@ -6,8 +6,9 @@
        }"
        v-show="show"
     >
-        <UiPlane/>
-        <resizer ref="resizer" type="row" class="row" :level="2"/>
+        <resizer v-if="direction==='right'" ref="resizer" type="row" class="row" :level="2"/>
+        <UiPlane :info="uiComponents"/>
+        <resizer v-if="direction==='left'" ref="resizer" type="row" class="row" :level="2"/>
     </div>
 </template>
 
@@ -16,6 +17,25 @@
     import UiPlane from '../dock/UiPlane'
     export default {
         name: "DrawerBox",
+        props: {
+          uiComponents: {
+            type: Object,
+            required: false,
+          },
+          direction: {
+            required: true,
+            type: String
+          },
+          bindDrawerActive: {
+            type: Boolean,
+            default: true
+          },
+          propDrawerWidth: {
+            // 传入进来的宽度
+            type: Number,
+            default: 300
+          }
+        },
         components: {
             Resizer,
             UiPlane
@@ -25,13 +45,19 @@
                 resizerSize: 3,
                 drawerWidth: 200,
                 currentWidth: 300,
-                show: false
+                show: true
             }
         },
         mounted() {
-          this.$PubSub.subscribe('drawerActive', (msg, val) => {
+          if(this.bindDrawerActive){
+            this.$PubSub.subscribe('drawerActive', (msg, val) => {
               this.show = val
-          })
+            })
+          }
+          if(!this.bindDrawerActive) {
+            this.show = true
+          }
+          this.currentWidth = this.propDrawerWidth
         },
         methods: {
             doMove: function (resizer, move) {
@@ -40,7 +66,12 @@
                 if(this.currentWidth<=200 && move[key]>0){
                     this.currentWidth = 200
                 } else {
-                    this.currentWidth = (this.drawerWidth - move[key])
+                    if(this.direction==='left') {
+                      this.currentWidth = (this.drawerWidth - move[key])
+                    } else {
+                      this.currentWidth = (this.drawerWidth + move[key])
+
+                    }
                 }
             },
             mousedown(e) {

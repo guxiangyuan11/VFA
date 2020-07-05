@@ -1,8 +1,7 @@
 <template>
     <div class="uiPlane column">
         <template v-for="(item,_index) in info.children">
-            <Demo :info="item"/>
-            <!--<component :active="editableTabsValue == item.component" v-if="item.component" :is="item.component"></component>-->
+            <component v-if="item.componentName" :info="item" :is="item.componentName"></component>
             <!--<div class="plane-ui" :ref="'planeui'+_index"  :style="{backgroundColor:item.backgroundColor,flex:item.flex}"></div>-->
             <Resizer v-if="_index !== info.children.length-1" ref="resizer" type="column" class="column" :level="2"/>
         </template>
@@ -11,27 +10,15 @@
 
 <script>
     import Resizer from '../dock/Resizer'
-    import Demo from './demo'
     export default {
         name: "UiPlane",
         components: {
-            Resizer,
-            Demo
+            Resizer
         },
         props: {
           info: {
             required: false,
-            type: Object,
-            default() {
-              return {
-                type: 'column',
-                children: [
-                  {flex:2, limit:100, backgroundColor:'red'},
-                  {flex:1, limit:100, backgroundColor:'green'},
-                  {flex:1, limit:100, backgroundColor:'blue'},
-                ]
-              }
-            }
+            type: Object
           },
         },
         data() {

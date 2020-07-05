@@ -1,8 +1,9 @@
 <template>
     <div class="mainUi">
         <side-left/>
-        <drawer-box/>
+        <drawer-box direction="left" :uiComponents="leftData"/>
         <edit-center/>
+        <!--<drawer-box direction="right" :bindDrawerActive="false"/>-->
     </div>
 </template>
 
@@ -16,14 +17,17 @@
         components: {
             SideLeft,
             EditCenter,
-            DrawerBox
+            DrawerBox,
         },
-        data(){
-            return {
+        data() {
+          return {
+            leftData: {
+              type: 'column',
+              children: [
+                {flex:1, limit:100, componentName: 'widgetComponent'},
+              ]
             }
-        },
-        methods: {
-
+          }
         }
     }
 </script>
